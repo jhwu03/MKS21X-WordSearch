@@ -28,11 +28,11 @@ public class WordSearch{
     }
 
     public boolean addWordHorizontal(String word,int row, int col){
-      if(word.length() + col > data.length){
+      if(word.length() + col >= data[row].length){
         return false;
-      }else{
+      }
       int n = 0;
-      for(int i = col; col < col + word.length();col++){
+      for(int i = col; i < col + word.length();i++){
         if(data[row][i] != '_' || data[row][i] != word.charAt(i)){
           return false;
       }else{
@@ -42,6 +42,21 @@ public class WordSearch{
     }
     return true;
   }
-}
+  public boolean addWordVertical(String word,int row, int col){
+    if(word.length() + row > data.length){
+      return false;
+    }else{
+      int n = 0;
+      for(int i = row; i < row + word.length();i++){
+        if(data[i][col] != '_' || data[i][col] != word.charAt(i)){
+          return false;
+        }else{
+          data[i][col] = word.charAt(n);
+          n = n + 1;
+        }
+      }
+      return true;
+    }
+  }
 
 }
