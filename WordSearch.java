@@ -63,4 +63,24 @@ public class WordSearch{
     return true;
   }
 
+  public boolean addWordDiagonal(String word, int row, int col){
+    if ( word.length() > data.length - row || word.length() > data[0].length - col){
+      return false;
+    }
+    int n = col;
+    int j = row;
+    for(int i = 0; i < word.length();i++){
+      if(data[j][n] != '_' && data[j][n] != word.charAt(i)){
+        return false;
+      }
+      n = n + 1;
+      j = j + 1;
+    }
+    for(int i = 0; i < word.length(); i++){
+      data[row][col] = word.charAt(i);
+      row = row + 1;
+      col = col + 1;
+    }
+    return true;
+  }
 }
