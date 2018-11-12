@@ -1,6 +1,14 @@
+import java.util.Random;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 public class WordSearch{
   private char[][]data;
-
+  private int seed;
+  private Random randgen;
+  private ArrayList<String> wordsToAdd;
+  private ArrayList<String> wordsAdded;
   public WordSearch(int rows,int cols){
     data = new char[rows][cols];
     for(int i = 0; i < data.length;i++){
@@ -19,10 +27,11 @@ public class WordSearch{
     public String toString(){
       String ans = "";
       for (int i = 0; i < data.length; i++){
-        for (int n = 0; n < data[i].length; n++){
+        ans += "|";
+        for (int n = 0; n < data[i].length - 1; n++){
           ans = ans + " " + data[i][n];
         }
-        ans = ans + "\n";
+        ans = ans + data[i][data[i].length - 1]+ "|\n";
       }
       return ans;
     }
