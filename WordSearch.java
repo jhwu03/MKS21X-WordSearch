@@ -19,11 +19,7 @@ public class WordSearch{
   }
   public WordSearch( int rows, int cols, String fileName){
     data = new char[rows][cols];
-    for(int i = 0; i < data.length;i++){
-      for(int n = 0; n < data[i].length;n = n + 1){
-        data[i][n] = '_';
-      }
-    }
+    clear();
     try{
       File f = new File(fileName);
       Scanner in = new Scanner(f);
@@ -104,6 +100,37 @@ public class WordSearch{
       data[row][col] = word.charAt(i);
       row = row + 1;
       col = col + 1;
+    }
+    return true;
+  }
+  private boolean addWord( String word, int r, int c, int rowIncrement, int colIncrement){
+    word = word.toUpperCase();
+    if(rowIncrement == 0 && colIncrement == 0){
+      return false;
+    }
+    if(rowIncrement == 1 && data.length < word.length() + r){
+         return false;
+       }
+    if (colIncrement == 1 && data[r].length < c + word.length()){
+         return false;
+       }
+    if (rowIncrement == -1 && r + 1 < word.length() ){
+         return false;
+       }
+    if (colIncrement == -1 && c + 1 < word.length() ){
+         return false;
+       }
+    for (int i = 0; i < word.length(); i ++){
+     int r1 = r + (i * rowIncrement);
+     int c1 = c + (i * colIncrement);
+     if (data[r1][c1] != word.charAt(i) && data[r1][c1] != '_') {
+       return false;
+     }
+   }
+    for(int i = 0; i < word.length(); i ++){
+      int r1 = r + (i * rowIncrement);
+      int c1 = c + (i * colIncrement);
+      data[r1][c1] = word.charAt(i);
     }
     return true;
   }
