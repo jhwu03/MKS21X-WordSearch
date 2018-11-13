@@ -17,9 +17,11 @@ public class WordSearch{
       }
     }
   }
-  public WordSearch( int rows, int cols, String fileName){
+  public WordSearch( int rows, int cols, String fileName, int seed){
     data = new char[rows][cols];
     clear();
+    wordsToAdd = new ArrayList<>();
+    wordsAdded = new ArrayList<>();
     try{
       File f = new File(fileName);
       Scanner in = new Scanner(f);
@@ -27,8 +29,28 @@ public class WordSearch{
         String word = in.next();
         word = word.toUpperCase();
         wordsToAdd.add(word);
-        addAllWords();
       }
+      //addAllWords();
+    }catch(FileNotFoundException e){
+      System.out.println("file" + fileName + "not found");
+      System.exit(1);
+    }
+    randgen = new Random(seed);
+  }
+  public WordSearch( int rows, int cols, String fileName){
+    data = new char[rows][cols];
+    clear();
+    wordsToAdd = new ArrayList<>();
+    wordsAdded = new ArrayList<>();
+    try{
+      File f = new File(fileName);
+      Scanner in = new Scanner(f);
+      while (in.hasNext()){
+        String word = in.next();
+        word = word.toUpperCase();
+        wordsToAdd.add(word);
+      }
+      //addAllWords();
     }catch(FileNotFoundException e){
       System.out.println("file" + fileName + "not found");
       System.exit(1);
@@ -47,7 +69,7 @@ public class WordSearch{
       for (int i = 0; i < data.length; i++){
         ans += "|";
         for (int n = 0; n < data[i].length - 1; n++){
-          ans = ans + " " + data[i][n];
+          ans = ans + data[i][n] + " ";
         }
         ans = ans + data[i][data[i].length - 1] + "|\n";
       }
@@ -110,7 +132,7 @@ public class WordSearch{
     }
     return true;
   }
-  private boolean addWord( String word, int r, int c, int rowIncrement, int colIncrement){
+  public boolean addWord( String word, int r, int c, int rowIncrement, int colIncrement){
     word = word.toUpperCase();
     if(rowIncrement == 0 && colIncrement == 0){
       return false;
@@ -143,16 +165,19 @@ public class WordSearch{
   }
   public void addAllWords() {
     while (wordsToAdd.size() > 0){
-      String w = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
-    for(int i = 0 ; i < 100 ; i = i + 1){
+    String w = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
+    for(int i = 0 ; i < 25 ; i = i + 1){
       int rows = Math.abs(randgen.nextInt() % data.length);
       int cols = Math.abs(randgen.nextInt() % data[0].length);
       if (addWord(w, rows, cols, randgen.nextInt() % 2, randgen.nextInt() % 2 )){
-        i = 100;
-        wordsAdded.add(w);
+        i = 25;
         wordsToAdd.remove(w);
+        wordsAdded.add(w);
+      }
+      if( i == 24)
+      wordsToAdd.remove(w);
     }
   }
 }
-}
+
 }
