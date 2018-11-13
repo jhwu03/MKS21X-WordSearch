@@ -23,10 +23,17 @@ public class WordSearch{
     try{
       File f = new File(fileName);
       Scanner in = new Scanner(f);
+      while (in.hasNext()){
+        String word = in.next();
+        word = word.toUpperCase();
+        wordsToAdd.add(word);
+        addAllWords();
+      }
     }catch(FileNotFoundException e){
       System.out.println("file" + fileName + "not found");
       System.exit(1);
     }
+    randgen = new Random();
   }
   private void clear(){
       for (int i = 0; i < data.length; i++){
@@ -134,4 +141,18 @@ public class WordSearch{
     }
     return true;
   }
+  public void addAllWords() {
+    while (wordsToAdd.size() > 0){
+      String w = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
+    for(int i = 0 ; i < 100 ; i = i + 1){
+      int rows = Math.abs(randgen.nextInt() % data.length);
+      int cols = Math.abs(randgen.nextInt() % data[0].length);
+      if (addWord(w, rows, cols, randgen.nextInt() % 2, randgen.nextInt() % 2 )){
+        i = 100;
+        wordsAdded.add(w);
+        wordsToAdd.remove(w);
+    }
+  }
+}
+}
 }
