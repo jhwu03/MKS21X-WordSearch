@@ -17,6 +17,21 @@ public class WordSearch{
       }
     }
   }
+  public WordSearch( int rows, int cols, String fileName){
+    data = new char[rows][cols];
+    for(int i = 0; i < data.length;i++){
+      for(int n = 0; n < data[i].length;n = n + 1){
+        data[i][n] = '_';
+      }
+    }
+    try{
+      File f = new File(fileName);
+      Scanner in = new Scanner(f);
+    }catch(FileNotFoundException e){
+      System.out.println("file" + fileName + "not found");
+      System.exit(1);
+    }
+  }
   private void clear(){
       for (int i = 0; i < data.length; i++){
         for (int n = 0; n < data[i].length; n++){
@@ -31,7 +46,7 @@ public class WordSearch{
         for (int n = 0; n < data[i].length - 1; n++){
           ans = ans + " " + data[i][n];
         }
-        ans = ans + data[i][data[i].length - 1]+ "|\n";
+        ans = ans + data[i][data[i].length - 1] + "|\n";
       }
       return ans;
     }
