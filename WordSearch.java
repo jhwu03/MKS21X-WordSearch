@@ -38,7 +38,7 @@ public class WordSearch{
     }
     randgen = new Random(rseed);
     seed = rseed;
-    addAllWords();
+    //addAllWords();
   }
 
   public WordSearch( int rows, int cols, String fileName){
@@ -59,7 +59,7 @@ public class WordSearch{
     }
     seed = (int)(Math.random()*100000);
     randgen = new Random(seed);
-    addAllWords();
+    //addAllWords();
   }
 
   private void clear(){
@@ -169,28 +169,37 @@ public class WordSearch{
     }
     return true;
   }
-  public void addAllWords() {
-    while (wordsToAdd.size() > 0){
-    String w = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
-    for(int i = 0 ; i < 25 ; i = i + 1){
-      int rows = Math.abs(randgen.nextInt() % data.length);
-      int cols = Math.abs(randgen.nextInt() % data[0].length);
-      if (addWord(w, rows, cols, randgen.nextInt() % 2, randgen.nextInt() % 2 )){
-        i = 25;
-        wordsToAdd.remove(w);
-        wordsAdded.add(w);
-      }
-      if( i == 24)
-      wordsToAdd.remove(w);
-    }
-  }
-}
-  Public void addAllWords(){
+//   public void addAllWords() {
+//     while (wordsToAdd.size() > 0){
+//     String w = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
+//     for(int i = 0 ; i < 25 ; i = i + 1){
+//       int rows = Math.abs(randgen.nextInt() % data.length);
+//       int cols = Math.abs(randgen.nextInt() % data[0].length);
+//       if (addWord(w, rows, cols, randgen.nextInt() % 2, randgen.nextInt() % 2 )){
+//         i = 25;
+//         wordsToAdd.remove(w);
+//         wordsAdded.add(w);
+//       }
+//       if( i == 24)
+//       wordsToAdd.remove(w);
+//     }
+//   }
+// }
+  public void addAllWords(){
     int a = 0;
     while(a < 1000 && wordsToAdd.size() > 0){
-      int rowi = (randgen.nextInt() % 3) - 1;
-      int coli = (randgen.nextInt() % 3) - 1;
-      int row
+      int rowi = randgen.nextInt(3) - 1;
+      int coli = randgen.nextInt(3) - 1;
+      int row = Math.abs(randgen.nextInt() % data.length);
+      int col = Math.abs(randgen.nextInt() % data[0].length);
+      String word = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
+      if(!addWord(word,row,col,rowi,coli)){
+        a = a + 1;
+      }else{
+        a = 0;
+        wordsToAdd.remove(word);
+        wordsAdded.add(word);
+      }
     }
   }
 
