@@ -79,7 +79,7 @@ public class WordSearch{
         }
         ans = ans + data[i][data[i].length - 1] + "|\n";
       }
-      return ans;
+      return ans + "\n" + "seed:" + seed + " ";
     }
 
     public boolean addWordHorizontal(String word,int row, int col){
@@ -169,22 +169,6 @@ public class WordSearch{
     }
     return true;
   }
-//   public void addAllWords() {
-//     while (wordsToAdd.size() > 0){
-//     String w = wordsToAdd.get(Math.abs(randgen.nextInt() % wordsToAdd.size()));
-//     for(int i = 0 ; i < 25 ; i = i + 1){
-//       int rows = Math.abs(randgen.nextInt() % data.length);
-//       int cols = Math.abs(randgen.nextInt() % data[0].length);
-//       if (addWord(w, rows, cols, randgen.nextInt() % 2, randgen.nextInt() % 2 )){
-//         i = 25;
-//         wordsToAdd.remove(w);
-//         wordsAdded.add(w);
-//       }
-//       if( i == 24)
-//       wordsToAdd.remove(w);
-//     }
-//   }
-// }
   public void addAllWords(){
     int a = 0;
     while(a < 1000 && wordsToAdd.size() > 0){
@@ -201,6 +185,10 @@ public class WordSearch{
         wordsAdded.add(word);
       }
     }
+  }
+
+  public static void main(String[] args) {
+
   }
 
 }
