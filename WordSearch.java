@@ -9,6 +9,7 @@ public class WordSearch{
   private Random randgen;
   private ArrayList<String> wordsToAdd;
   private ArrayList<String> wordsAdded;
+
   public WordSearch(int rows,int cols){
     data = new char[rows][cols];
     for(int i = 0; i < data.length;i++){
@@ -17,7 +18,8 @@ public class WordSearch{
       }
     }
   }
-  public WordSearch( int rows, int cols, String fileName, int seed){
+
+  public WordSearch( int rows, int cols, String fileName, int rseed){
     data = new char[rows][cols];
     clear();
     wordsToAdd = new ArrayList<>();
@@ -30,13 +32,15 @@ public class WordSearch{
         word = word.toUpperCase();
         wordsToAdd.add(word);
       }
-      //addAllWords();
     }catch(FileNotFoundException e){
       System.out.println("file" + fileName + "not found");
       System.exit(1);
     }
-    randgen = new Random(seed);
+    randgen = new Random(rseed);
+    seed = rseed;
+    addAllWords();
   }
+
   public WordSearch( int rows, int cols, String fileName){
     data = new char[rows][cols];
     clear();
@@ -50,13 +54,15 @@ public class WordSearch{
         word = word.toUpperCase();
         wordsToAdd.add(word);
       }
-      //addAllWords();
     }catch(FileNotFoundException e){
       System.out.println("file" + fileName + "not found");
       System.exit(1);
     }
-    randgen = new Random();
+    seed = (int)(Math.random()*100000);
+    randgen = new Random(seed);
+    addAllWords();
   }
+
   private void clear(){
       for (int i = 0; i < data.length; i++){
         for (int n = 0; n < data[i].length; n++){
@@ -64,7 +70,8 @@ public class WordSearch{
         }
       }
     }
-    public String toString(){
+
+   public String toString(){
       String ans = "";
       for (int i = 0; i < data.length; i++){
         ans += "|";
