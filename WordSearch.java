@@ -51,7 +51,6 @@ public class WordSearch{
       Scanner in = new Scanner(f);
       while (in.hasNext()){
         String word = in.next();
-        word = word.toUpperCase();
         wordsToAdd.add(word);
       }
     }catch(FileNotFoundException e){
@@ -147,13 +146,13 @@ public class WordSearch{
     if(rowIncrement == 1 && data.length < word.length() + r){
          return false;
        }
-    if (colIncrement == 1 && data[r].length < c + word.length()){
+    if (colIncrement == 1 && data[r].length < word.length() + c){
          return false;
        }
-    if (rowIncrement == -1 && r + 1 < word.length() ){
+    if (rowIncrement == -1 && r < word.length() - 1 ){
          return false;
        }
-    if (colIncrement == -1 && c + 1 < word.length() ){
+    if (colIncrement == -1 && c < word.length() - 1 ){
          return false;
        }
     for (int i = 0; i < word.length(); i ++){
@@ -186,5 +185,13 @@ public class WordSearch{
     }
   }
 }
+  Public void addAllWords(){
+    int a = 0;
+    while(a < 1000 && wordsToAdd.size() > 0){
+      int rowi = (randgen.nextInt() % 3) - 1;
+      int coli = (randgen.nextInt() % 3) - 1;
+      int row
+    }
+  }
 
 }
