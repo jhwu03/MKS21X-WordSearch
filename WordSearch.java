@@ -187,7 +187,26 @@ public class WordSearch{
     }
   }
 
-  public static void main(String[] args) {
+  public static void main(String[] args){
+    // try{
+      if(args.length < 3){
+        System.out.println("You need to enter more parameters!");
+        System.out.println("You can use WordSearch by entering:");
+        System.out.println();
+        System.out.println("java WordSearch rows cols filename");
+        System.out.println("***this initiates a Wordsearch with a random puzzle");
+        System.out.println();
+        System.out.println("java WordSearch rows cols filename randomseed");
+        System.out.println("***this initiates a Wordsearch with a specific seed");
+        System.out.println();
+        System.out.println("java WordSearch rows cols filename randomseed answer");
+        System.out.println("***this gives you the answer of the Wordsearch with the specific seed" );
+        System.out.println();
+      }
+    // }catch(FileNotFoundException e){
+    //   System.out.println("file" + args[2] + "not found");
+    //   System.exit(1);
+    // }
 
   }
 
