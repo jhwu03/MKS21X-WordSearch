@@ -189,6 +189,12 @@ public class WordSearch{
 
   public static void main(String[] args){
     // try{
+      if(Integer.parseInt(args[0]) < 0 ){
+        System.out.println("row must be greater than 0!");
+      }
+      if(Integer.parseInt(args[1]) < 0 ){
+        System.out.println("column must be greater than 0!");
+      }
       if(args.length < 3){
         System.out.println("You need to enter more parameters!");
         System.out.println("You can use WordSearch by entering:");
@@ -202,6 +208,9 @@ public class WordSearch{
         System.out.println("java WordSearch rows cols filename randomseed answer");
         System.out.println("***this gives you the answer of the Wordsearch with the specific seed" );
         System.out.println();
+      }
+      if(args.length == 3){
+        WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2]);
       }
     // }catch(FileNotFoundException e){
     //   System.out.println("file" + args[2] + "not found");
