@@ -156,16 +156,12 @@ public class WordSearch{
          return false;
        }
     for (int i = 0; i < word.length(); i ++){
-     int r1 = r + (i * rowIncrement);
-     int c1 = c + (i * colIncrement);
-     if (data[r1][c1] != word.charAt(i) && data[r1][c1] != '_') {
+     if (data[i * rowIncrement][i * colIncrement] != word.charAt(i) && data[i * rowIncrement][i * colIncrement] != '_') {
        return false;
      }
    }
     for(int i = 0; i < word.length(); i ++){
-      int r1 = r + (i * rowIncrement);
-      int c1 = c + (i * colIncrement);
-      data[r1][c1] = word.charAt(i);
+      data[i * rowIncrement][i * colIncrement] = word.charAt(i);
     }
     return true;
   }
@@ -186,15 +182,28 @@ public class WordSearch{
       }
     }
   }
+  public void changeSpace(){
+    for(int i = 0 ; i < data.length ; i = i + 1){
+      for(int r = 0; r < data[i].length; r = r + 1){
+        if (data[i][r] == '_'){
+          data[i][r] = ' ';
+        }
+      }
+    }
+  }
+  public void fillrand(){
+    String a = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    int l = a.length();
+    for(int i = 0 ; i < data.length ; i = i + 1){
+      for(int r = 0; r < data[i].length; r = r + 1){
+        if (data[i][r] == '_'){
+          data[i][r] = a.charAt(Math.abs(randgen.nextInt(l)));
+        }
+      }
+    }
+  }
 
   public static void main(String[] args){
-    // try{
-      if(Integer.parseInt(args[0]) < 0 ){
-        System.out.println("row must be greater than 0!");
-      }
-      if(Integer.parseInt(args[1]) < 0 ){
-        System.out.println("column must be greater than 0!");
-      }
       if(args.length < 3){
         System.out.println("You need to enter more parameters!");
         System.out.println("You can use WordSearch by entering:");
@@ -208,14 +217,60 @@ public class WordSearch{
         System.out.println("java WordSearch rows cols filename randomseed answer");
         System.out.println("***this gives you the answer of the Wordsearch with the specific seed" );
         System.out.println();
+        System.exit(1);
       }
+
+      if(Integer.parseInt(args[0]) < 0 ){
+        System.out.println("row must be greater than 0!");
+        System.exit(1);
+      }
+
+      if(Integer.parseInt(args[1]) < 0 ){
+        System.out.println("column must be greater than 0!");
+        System.exit(1);
+      }
+
       if(args.length == 3){
-        WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2]);
+      try{
+        WordSearch w = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2]);
+        w.fillrand();
+        System.out.println(w);
+      }catch(NumberFormatException e){
+       System.out.println(" rows or cols you entered are not integers");
+       System.exit(1);
       }
-    // }catch(FileNotFoundException e){
-    //   System.out.println("file" + args[2] + "not found");
-    //   System.exit(1);
-    // }
+    }
+    if ( args.length == 4) {
+      if(Integer.parseInt(args[3]) <= 0 || Integer.parseInt(args[3]) >= 10000 ){
+        System.out.println("the seed must be within 0 and 10000 inclusive");
+        System.exit(1);
+      }
+          try{
+            WordSearch w = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2],Integer.parseInt(args[3]));
+            w.fillrand();
+            System.out.println(w);
+          }catch(NumberFormatException e){
+           System.out.println(" rows, cols or seed you entered are not integers");
+           System.exit(1);
+          }
+        }
+    if ( args.length >= 5) {
+      if(Integer.parseInt(args[3]) <= 0 || Integer.parseInt(args[3]) >= 10000 ){
+        System.out.println("the seed must be within 0 and 10000 inclusive");
+        System.exit(1);
+      }
+        try{
+          WordSearch w = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]),args[2],Integer.parseInt(args[3]));
+          if(!(args[4].equals("key"))){
+            w.fillrand();
+          }
+          w.changeSpace();
+          System.out.println(w);
+        }catch(NumberFormatException e){
+         System.out.println(" rows, cols or seed you entered are not integers");
+         System.exit(1);
+        }
+      }
 
   }
 
