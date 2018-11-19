@@ -79,7 +79,12 @@ public class WordSearch{
         }
         ans = ans + data[i][data[i].length - 1] + "|\n";
       }
-      return ans + "\n" + "seed:" + seed + " ";
+      ans = ans + "\n" + "words: ";
+      for (int i = 0 ; i < wordsAdded.size() - 2 ; i++){
+          ans =  ans + wordsAdded.get(i) + ", " ;
+        }
+        ans = ans + wordsAdded.get(wordsAdded.size() - 1);
+      return ans + "\n" + "seed: " + seed + " ";
     }
 
     public boolean addWordHorizontal(String word,int row, int col){
